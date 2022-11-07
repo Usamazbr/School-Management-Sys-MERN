@@ -1,0 +1,17 @@
+const express = require("express");
+const {
+  getAlldata,
+  createData,
+  patchData,
+  deleteData,
+} = require("../controllers/stuControl");
+
+const router = express.Router();
+
+// all data and add data
+router.route("/data").get(getAlldata).post(createData);
+
+// edit and delete data
+router.route("/:Stu").patch(patchData).delete(deleteData);
+
+module.exports = router;
