@@ -1,4 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
+  background-color: rgb(15, 17, 20);
+  background-size: 100%;
+  min-height: 100%;
+  width: 100%;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
@@ -14,6 +22,28 @@ header .container {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+/* scrollbar design */
+.scrollbar::-webkit-scrollbar {
+  width: 10px;
+  height: 20px;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+  border-radius: 100vh;
+  /* background: #f7f4ed; */
+  background: transparent;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background: #94a1a1;
+  border-radius: 100vh;
+  /* border: 3px solid #f6f7ed; */
+}
+
+.scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #000000;
 }
 
 code {

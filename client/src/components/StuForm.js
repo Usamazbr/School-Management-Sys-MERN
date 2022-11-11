@@ -44,26 +44,51 @@ const StuForm = (props) => {
     }
   };
   return (
-    <div>
-      <h2>Form</h2>
+    <div className="flex flex-col w-full text-stone-900">
+      <h2 className="flex mx-auto text-xl">Add new student</h2>
 
-      <label>Name: </label>
-      <input type="Name" onChange={(e) => setName(e.target.value)} />
-      <br />
+      <label>
+        Name:
+        <input
+          className="m-1"
+          type="Name"
+          onChange={(e) => setName(e.target.value)}
+        />
+      </label>
 
-      <label>Age: </label>
-      <input type="Age" onChange={(e) => setAge(e.target.value)} />
-      <br />
+      <label>
+        Age:
+        <input
+          className="m-1"
+          type="Age"
+          onChange={(e) => setAge(e.target.value)}
+        />
+      </label>
 
-      <label>Subs: </label>
-      <input type="Subs" onChange={(e) => setSubs(e.target.value)} />
-      <br />
+      <label>
+        Subs:
+        <input
+          className="m-1"
+          type="Subs"
+          onChange={(e) => setSubs(e.target.value)}
+        />
+      </label>
 
-      <label>Teacher: </label>
-      <input type="Teacher" onChange={(e) => setTeacher(e.target.value)} />
-      <br />
+      <label>
+        Teacher:
+        <input
+          className="m-1"
+          type="Teacher"
+          onChange={(e) => setTeacher(e.target.value)}
+        />
+      </label>
 
-      <button onClick={stuSubmit}>Submit</button>
+      <button
+        onClick={stuSubmit}
+        className="mx-auto p-2 bg-neutral-500 hover:bg-stone-300 border-2 border-transparent hover:border-neutral-700 hover:text-neutral-700 rounded-lg"
+      >
+        Submit
+      </button>
       {err && <div>{err}</div>}
     </div>
   );

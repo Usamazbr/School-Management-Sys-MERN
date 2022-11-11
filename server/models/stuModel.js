@@ -7,6 +7,10 @@ const stuSchema = new Schema(
     age: { type: Number, required: true },
     subjects: [String],
     teachers: [String],
+    email: { type: String, required: false },
+    period: { type: String, required: false },
+    role: { type: Number, required: false },
+    phone: { type: Number, required: false },
   },
   { timestamps: true }
 );
