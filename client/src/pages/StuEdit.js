@@ -62,9 +62,21 @@ function StuEdit() {
   return (
     <div className="flex flex-row mt-2 p-2 h-160  mx-auto bg-stone-800 rounded-lg">
       <div className="h-24 w-1/6 p-2 space-y-2 rounded-lg">
-        <div className="h-10 bg-stone-900 rounded-lg"></div>
-        <div className="h-10 bg-stone-900 rounded-lg"></div>
-        <div className="h-10 bg-stone-900 rounded-lg"></div>
+        <div className="h-10 bg-stone-900 rounded-lg">
+          <button className="h-10 w-full px-2 text-stone-500 hover:bg-zinc-600 hover:text-zinc-800 rounded-lg">
+            Student Database
+          </button>
+        </div>
+        <div className="h-10 bg-stone-900 rounded-lg">
+          <button className="h-10 w-full px-2 text-stone-500 hover:bg-zinc-600 hover:text-zinc-800 rounded-lg">
+            Teacher Database
+          </button>
+        </div>
+        <div className="h-10 bg-stone-900 rounded-lg">
+          <button className="h-10 w-full px-2 text-stone-500 hover:bg-zinc-600 hover:text-zinc-800 rounded-lg">
+            Settings
+          </button>
+        </div>
         <div className="h-10 bg-stone-900 rounded-lg"></div>
         <div className="h-10 bg-stone-900 rounded-lg"></div>
         <div className="h-10 bg-stone-900 rounded-lg"></div>
@@ -81,6 +93,9 @@ function StuEdit() {
         </div>
 
         <div className="flex flex-col h-full w-full">
+          <h2 className="px-2 h-8 text-xl text-neutral-500 font-bold">
+            Details
+          </h2>
           <div className="w-full h-1/12 border rounded-lg">
             {add ? (
               <button
@@ -88,7 +103,7 @@ function StuEdit() {
                 onClick={() => {
                   setAdd(!add);
                 }}
-                className="m-2 px-2 bg-neutral-500 hover:bg-stone-300 border-2 border-transparent hover:border-neutral-700 hover:text-neutral-700 rounded-lg"
+                className="m-2 px-2 bg-neutral-500 hover:bg-stone-300 border-2 border-transparent hover:border-neutral-700 hover:text-neutral-700 ease-in-out duration-800 rounded-lg"
               >
                 +
               </button>
@@ -98,14 +113,13 @@ function StuEdit() {
                 onClick={() => {
                   setAdd(!add);
                 }}
-                className="m-2 px-2 bg-neutral-500 hover:bg-stone-300 border-2 border-transparent hover:border-neutral-700 hover:text-neutral-700 rounded-lg"
+                className="m-2 px-2 bg-neutral-500 hover:bg-stone-300 border-2 border-transparent hover:border-neutral-700 hover:text-neutral-700 ease-in-out duration-800 rounded-lg"
               >
                 Cancel
               </button>
             )}
           </div>
           <div className="mx-auto h-11/12 w-full text-neutral-500 bg-transparent mt-4 rounded-t-lg">
-            <h2 className="m-auto h-8 text-lg text-center">Details</h2>
             <StuDash studs={stu} removeStu={removeStu} updateStu={updateStu} />
           </div>
         </div>
