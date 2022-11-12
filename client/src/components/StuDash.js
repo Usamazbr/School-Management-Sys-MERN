@@ -18,7 +18,7 @@ const StuDash = (props) => {
   }
 
   return (
-    <div className="h-120 border-separate border-spacing-4 rounded-lg table-fixed overflow-y-scroll scrollbar">
+    <div className="h-130 border-separate border-spacing-4 rounded-lg table-fixed overflow-y-scroll scrollbar">
       <table>
         <thead>
           <tr>

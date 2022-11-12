@@ -70,18 +70,18 @@ function StuEdit() {
         <div className="h-10 bg-stone-900 rounded-lg"></div>
         <div className="h-10 bg-stone-900 rounded-lg"></div>
       </div>
-      <form className="relative w-5/6 mx-auto h-full border rounded-lg">
+      <form className=" w-5/6 mx-auto h-full border rounded-lg">
         <div
           // ref={ref1}
-          className={`absolute right-0 mx-auto ml-2 w-56 p-3 bg-neutral-500 shadow-md shadow-neutral-500/50 rounded-lg ${
+          className={`absolute right-0 mx-auto ml-2 w-56 p-3 bg-neutral-500 shadow-md shadow-neutral-500/50 rounded-lg ease-in-out duration-300 ${
             !add ? "translate-x-0 " : "translate-x-full"
           }`}
         >
           <StuForm />
         </div>
 
-        <div className="flex flex-col w-full">
-          <div className="w-full h-1/12 rounded-lg">
+        <div className="flex flex-col h-full w-full">
+          <div className="w-full h-1/12 border rounded-lg">
             {add ? (
               <button
                 type="button"
