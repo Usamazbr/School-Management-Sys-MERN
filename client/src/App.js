@@ -8,12 +8,12 @@ function App() {
       <BrowserRouter>
         <NavBar />
       </BrowserRouter>
-      <div className="m-auto pages">
-        {/* <Routes>
+      {/* <div className="m-auto pages"> */}
+      {/* <Routes>
           <Route path="/" element={<StuEdit />} />
         </Routes> */}
-        <StuEdit />
-      </div>
+      <StuEdit />
+      {/* </div> */}
     </div>
   );
 }

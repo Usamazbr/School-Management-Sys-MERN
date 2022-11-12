@@ -66,7 +66,7 @@ const StuForm = (props) => {
       </label>
 
       <label>
-        Subs:
+        Subjects:
         <input
           className="m-1"
           type="Subs"
@@ -75,11 +75,47 @@ const StuForm = (props) => {
       </label>
 
       <label>
-        Teacher:
+        Teachers:
         <input
           className="m-1"
           type="Teacher"
           onChange={(e) => setTeacher(e.target.value)}
+        />
+      </label>
+
+      <label>
+        Email:
+        <input
+          className="m-1"
+          type="Teacher"
+          // onChange={(e) => setTeacher(e.target.value)}
+        />
+      </label>
+
+      <label>
+        Classes:
+        <input
+          className="m-1"
+          type="Teacher"
+          // onChange={(e) => setTeacher(e.target.value)}
+        />
+      </label>
+
+      <label>
+        Role no.:
+        <input
+          className="m-1"
+          type="Teacher"
+          // onChange={(e) => setTeacher(e.target.value)}
+        />
+      </label>
+
+      <label>
+        Phone:
+        <input
+          className="m-1"
+          type="Teacher"
+          // onChange={(e) => setTeacher(e.target.value)}
         />
       </label>
 
