@@ -60,43 +60,21 @@ function StuEdit() {
   };
 
   return (
-    <div className="flex flex-row mt-2 p-2 h-160  mx-auto bg-stone-800 rounded-lg">
-      <div className="h-24 w-1/6 p-2 space-y-2 rounded-lg">
-        <div className="h-10 bg-stone-900 rounded-lg">
-          <button className="h-10 w-full px-2 text-stone-500 hover:bg-zinc-600 hover:text-zinc-800 rounded-lg">
-            Student Database
-          </button>
-        </div>
-        <div className="h-10 bg-stone-900 rounded-lg">
-          <button className="h-10 w-full px-2 text-stone-500 hover:bg-zinc-600 hover:text-zinc-800 rounded-lg">
-            Teacher Database
-          </button>
-        </div>
-        <div className="h-10 bg-stone-900 rounded-lg">
-          <button className="h-10 w-full px-2 text-stone-500 hover:bg-zinc-600 hover:text-zinc-800 rounded-lg">
-            Settings
-          </button>
-        </div>
-        <div className="h-10 bg-stone-900 rounded-lg"></div>
-        <div className="h-10 bg-stone-900 rounded-lg"></div>
-        <div className="h-10 bg-stone-900 rounded-lg"></div>
-        <div className="h-10 bg-stone-900 rounded-lg"></div>
+    <div>
+      <div
+        // ref={ref1}
+        className={`absolute right-0 mx-auto ml-2 w-56 p-3 bg-stone-900 shadow-md shadow-neutral-500/50 rounded-lg ease-in-out duration-300 ${
+          !add ? "translate-x-0 " : "translate-x-full"
+        }`}
+      >
+        <StuForm />
       </div>
-      <form className=" w-5/6 mx-auto h-full border rounded-lg">
-        <div
-          // ref={ref1}
-          className={`absolute right-0 mx-auto ml-2 w-56 p-3 bg-neutral-500 shadow-md shadow-neutral-500/50 rounded-lg ease-in-out duration-300 ${
-            !add ? "translate-x-0 " : "translate-x-full"
-          }`}
-        >
-          <StuForm />
-        </div>
-
+      <form className="mx-auto h-full border rounded-lg">
         <div className="flex flex-col h-full w-full">
           <h2 className="px-2 h-8 text-xl text-neutral-500 font-bold">
             Details
           </h2>
-          <div className="w-full h-1/12 border rounded-lg">
+          <div className="w-full h-1/12 rounded-lg">
             {add ? (
               <button
                 type="button"

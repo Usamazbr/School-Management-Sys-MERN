@@ -8,7 +8,7 @@ const stuSchema = new Schema(
     subjects: [String],
     teachers: [String],
     email: { type: String, required: false },
-    period: { type: String, required: false },
+    period: [String],
     role: { type: Number, required: false },
     phone: { type: Number, required: false },
   },

@@ -27,7 +27,7 @@ header .container {
 /* scrollbar design */
 .scrollbar::-webkit-scrollbar {
   width: 10px;
-  height: 20px;
+  height: 10px;
 }
 
 .scrollbar::-webkit-scrollbar-track {

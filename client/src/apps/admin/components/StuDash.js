@@ -18,19 +18,19 @@ const StuDash = (props) => {
   }
 
   return (
-    <div className="h-130 border-separate border-spacing-4 rounded-lg table-fixed overflow-y-scroll scrollbar">
+    <div className="h-130 border-separate border-spacing-2 rounded-lg table-fixed overflow-scroll scrollbar">
       <table>
         <thead>
           <tr>
-            <th className="w-1/4">Name</th>
-            <th className="w-1/4">Age</th>
-            <th className="w-1/4">Subjects</th>
-            <th className="w-1/4">Teachers</th>
-            <th className="w-1/4">Email</th>
-            <th className="w-1/4">Classes</th>
-            <th className="w-1/4">Role</th>
-            <th className="w-1/4">Phone</th>
-            <th className="w-1/4">Actions</th>
+            <th className="w-1/5">Name</th>
+            <th className="w-1/5">Age</th>
+            <th className="w-1/5">Subjects</th>
+            <th className="w-1/5">Teachers</th>
+            <th className="w-1/5">Email</th>
+            <th className="w-1/5">Classes</th>
+            <th className="w-1/5">Role</th>
+            <th className="w-1/5">Phone</th>
+            <th className="w-1/5">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -63,18 +63,39 @@ const StuDash = (props) => {
                   ))}
                 </td>
                 <td>
-                  <p className="m-2 px-4 border">test</p>
+                  {!student.email ? (
+                    <p className="m-2 px-4 border">test email</p>
+                  ) : (
+                    <p className="m-2 border">{student.email}</p>
+                  )}
                 </td>
                 <td>
-                  <p className="m-2 px-4 border">test</p>
+                  {!student.period ? (
+                    <p className="m-2 px-4 border">test class</p>
+                  ) : (
+                    student.period.map((sub, index) => (
+                      <p key={index} className="m-2 px-2 border">
+                        {sub}
+                        {() => console.log(sub)}
+                      </p>
+                    ))
+                  )}
                 </td>
                 <td>
-                  <p className="m-2 px-4 border">test</p>
+                  {!student.role ? (
+                    <p className="m-2 px-4 border">test role number</p>
+                  ) : (
+                    <p className="m-2 border">{student.role}</p>
+                  )}
                 </td>
                 <td>
-                  <p className="m-2 px-4 border">test</p>
+                  {!student.phone ? (
+                    <p className="m-2 px-4 border">test phone</p>
+                  ) : (
+                    <p className="m-2 border">{student.phone}</p>
+                  )}
                 </td>
-                <td className="">
+                <td className="flex flex-col">
                   <button
                     onClick={() => setEdit({ id: student._id, value: student })}
                     className="mt-1 px-2 text-stone-900 bg-neutral-500 hover:bg-stone-300 border-2 border-transparent hover:border-neutral-700 hover:text-neutral-700 rounded-t-lg"

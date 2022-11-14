@@ -13,7 +13,8 @@ const getAlldata = async (req, res) => {
 
 //create data
 const createData = async (req, res) => {
-  const { name, age, subjects, teachers } = req.body;
+  const { name, age, subjects, teachers, email, period, role, phone } =
+    req.body;
   console.log(req.body);
   if (!name || !age) {
     throw Error("Username and age is required");
@@ -24,6 +25,10 @@ const createData = async (req, res) => {
       age,
       subjects,
       teachers,
+      email,
+      period,
+      role,
+      phone,
     });
     // data.save();
     res.status(200).send({ data });
@@ -34,7 +39,8 @@ const createData = async (req, res) => {
 
 //edit data
 const patchData = async (req, res) => {
-  const { username, age, subjects, teachers } = req.body;
+  const { username, age, subjects, teachers, email, period, role, phone } =
+    req.body;
   const stu_id = req.params.Stu;
   console.log(stu_id);
   console.log(req.body);
@@ -46,6 +52,10 @@ const patchData = async (req, res) => {
         age,
         subjects,
         teachers,
+        email,
+        period,
+        role,
+        phone,
       },
       { new: true }
     );

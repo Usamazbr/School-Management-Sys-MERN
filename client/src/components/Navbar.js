@@ -6,7 +6,7 @@ const NavBar = () => {
 
   return (
     <header className="flex flex-row relative">
-      <Link to="/">
+      <Link to="/admin">
         <h1 className="text-5xl font-bold text-neutral-500 shadow-neutral-500/50 hover:text-white leading-tight text-center">
           Student Forum
         </h1>

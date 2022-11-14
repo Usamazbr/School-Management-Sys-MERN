@@ -1,6 +1,6 @@
 import { Navigate, BrowserRouter, Routes, Route } from "react-router-dom";
 import NavBar from "./components/Navbar";
-import StuEdit from "./pages/StuEdit";
+import AdminApp from "./apps/admin/AdminApp";
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
       {/* <Routes>
           <Route path="/" element={<StuEdit />} />
         </Routes> */}
-      <StuEdit />
+      <AdminApp />
       {/* </div> */}
     </div>
   );
