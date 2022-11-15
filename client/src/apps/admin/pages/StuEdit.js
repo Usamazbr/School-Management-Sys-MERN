@@ -1,41 +1,40 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import StuForm from "../components/StuForm";
 import StuDash from "../components/StuDash";
 
 function StuEdit() {
   const [stu, setStu] = useState();
-  const ref1 = useRef(null);
+  // const ref1 = useRef(null);
   const [add, setAdd] = useState(true);
   const apiUrl = `http://localhost:5005`;
 
-  const dataFetch = async () => {
-    const response = await fetch(apiUrl + "/api/students/data", {
-      headers: { "Content-Type": "application/json" },
-    });
-    const json = await response.json();
-
-    if (response.ok) {
-      setStu(json.data);
-    }
-  };
-
   useEffect(() => {
+    const dataFetch = async () => {
+      const response = await fetch(apiUrl + "/api/students/data", {
+        headers: { "Content-Type": "application/json" },
+      });
+      const json = await response.json();
+
+      if (response.ok) {
+        setStu(json.data);
+      }
+    };
     dataFetch();
-    console.log(stu);
+    // console.log(stu);
     // document.addEventListener("click", outClick);
-  }, []);
+  }, [apiUrl]);
   // useEffect(() => {
   //   console.log(add);
 
   //   return () => {};
   // }, [add]);
 
-  const outClick = (e) => {
-    if (!ref1.current.contains(e.target)) {
-      console.log("clicked");
-      setAdd(false);
-    }
-  };
+  // const outClick = (e) => {
+  //   if (!ref1.current.contains(e.target)) {
+  //     console.log("clicked");
+  //     setAdd(false);
+  //   }
+  // };
 
   const removeStu = async (id) => {
     const response = await fetch(apiUrl + "/api/students/" + id, {
@@ -72,7 +71,7 @@ function StuEdit() {
       <form className="mx-auto h-full border rounded-lg">
         <div className="flex flex-col h-full w-full">
           <h2 className="px-2 h-8 text-xl text-neutral-500 font-bold">
-            Details
+            Students' Details
           </h2>
           <div className="w-full h-1/12 rounded-lg">
             {add ? (

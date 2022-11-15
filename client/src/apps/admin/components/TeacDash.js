@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import StuForm from "./StuForm";
 
-const StuDash = (props) => {
+const TeacDash = (props) => {
   const [edit, setEdit] = useState({ id: null, value: [] });
 
   useEffect(() => {
@@ -70,11 +70,15 @@ const StuDash = (props) => {
                   )}
                 </td>
                 <td>
-                  {student.period.map((sub, index) => (
-                    <p key={index} className="m-2 px-2 border">
-                      {sub}
-                    </p>
-                  ))}
+                  {!student.period ? (
+                    <p className="m-2 px-4 border">test class</p>
+                  ) : (
+                    student.period.map((sub, index) => (
+                      <p key={index} className="m-2 px-2 border">
+                        {sub}
+                      </p>
+                    ))
+                  )}
                 </td>
                 <td>
                   {!student.role ? (
@@ -113,4 +117,4 @@ const StuDash = (props) => {
   );
 };
 
-export default StuDash;
+export default TeacDash;
