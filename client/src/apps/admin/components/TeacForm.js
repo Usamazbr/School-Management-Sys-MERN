@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { StuContext } from "../context/StuContext";
 
 const apiUrl = `http://localhost:5005`;
 
 const TeacForm = (props) => {
+  const { dispatch } = useContext(StuContext);
   const [err, setErr] = useState(null);
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
@@ -12,6 +14,7 @@ const TeacForm = (props) => {
   const [periods, setPeriod] = useState("");
   const [role, setRole] = useState("");
   const [phone, setPhone] = useState("");
+  let json;
 
   useEffect(() => {}, []);
 
@@ -49,6 +52,12 @@ const TeacForm = (props) => {
           phone,
         }),
       });
+
+      json = await response.json();
+      if (response.ok) {
+        console.log(json.data);
+        dispatch({ type: "UPDATE", payload: json.data });
+      }
     } else {
       response = await fetch(apiUrl + `/api/students/data`, {
         method: "POST",
@@ -64,25 +73,29 @@ const TeacForm = (props) => {
           phone,
         }),
       });
+
+      json = await response.json();
+      if (response.ok) {
+        console.log(json.data);
+        dispatch({ type: "CREATE", payload: json.data });
+        setErr(null);
+        setName("");
+        setAge("");
+        setSubs("");
+        setTeacher("");
+        setEmail("");
+        setPeriod("");
+        setRole("");
+        setPhone("");
+      }
     }
 
-    const json = await response.json();
     if (!response.ok) {
       console.log(json);
       setErr(json.err);
     }
-    if (response.ok) {
-      setErr(null);
-      setName("");
-      setAge("");
-      setSubs("");
-      setTeacher("");
-      setEmail("");
-      setPeriod("");
-      setRole("");
-      setPhone("");
-    }
   };
+
   return (
     <form
       onSubmit={stuSubmit}

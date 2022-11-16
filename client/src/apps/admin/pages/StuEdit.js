@@ -3,60 +3,9 @@ import StuForm from "../components/StuForm";
 import StuDash from "../components/StuDash";
 
 function StuEdit() {
-  const [stu, setStu] = useState();
-  // const ref1 = useRef(null);
   const [add, setAdd] = useState(true);
-  const apiUrl = `http://localhost:5005`;
 
-  useEffect(() => {
-    const dataFetch = async () => {
-      const response = await fetch(apiUrl + "/api/students/data", {
-        headers: { "Content-Type": "application/json" },
-      });
-      const json = await response.json();
-
-      if (response.ok) {
-        setStu(json.data);
-      }
-    };
-    dataFetch();
-    // console.log(stu);
-    // document.addEventListener("click", outClick);
-  }, [apiUrl]);
-  // useEffect(() => {
-  //   console.log(add);
-
-  //   return () => {};
-  // }, [add]);
-
-  // const outClick = (e) => {
-  //   if (!ref1.current.contains(e.target)) {
-  //     console.log("clicked");
-  //     setAdd(false);
-  //   }
-  // };
-
-  const removeStu = async (id) => {
-    const response = await fetch(apiUrl + "/api/students/" + id, {
-      method: "DELETE",
-    });
-    const json = await response.json();
-
-    if (response.ok) {
-      console.log(json);
-      const removedStu = [...stu].filter((stu) => stu._id !== id);
-
-      setStu(removedStu);
-    }
-  };
-
-  const updateStu = async (id, edit) => {
-    console.log(id);
-    console.log(edit);
-    setStu((prev) =>
-      prev.map((item) => (item._id === id ? (item = edit) : item))
-    );
-  };
+  useEffect(() => {}, []);
 
   return (
     <div>
@@ -68,7 +17,7 @@ function StuEdit() {
       >
         <StuForm />
       </div>
-      <form className="mx-auto h-full border rounded-lg">
+      <div className="mx-auto h-full border rounded-lg">
         <div className="flex flex-col h-full w-full">
           <h2 className="px-2 h-8 text-xl text-neutral-500 font-bold">
             Students' Details
@@ -97,10 +46,10 @@ function StuEdit() {
             )}
           </div>
           <div className="mx-auto h-11/12 w-full text-neutral-500 bg-transparent mt-4 rounded-t-lg">
-            <StuDash studs={stu} removeStu={removeStu} updateStu={updateStu} />
+            <StuDash />
           </div>
         </div>
-      </form>
+      </div>
     </div>
   );
 }

@@ -1,20 +1,63 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { StuContext } from "../context/StuContext";
+// import TeacForm from "./TeacForm";
 import StuForm from "./StuForm";
 
-const StuDash = (props) => {
+const StuDash = () => {
+  const { students, dispatch } = useContext(StuContext);
   const [edit, setEdit] = useState({ id: null, value: [] });
 
   useEffect(() => {
-    console.log(props.studs);
-  }, [props.studs]);
+    const apiUrl = `http://localhost:5005`;
+    const dataFetch = async () => {
+      const response = await fetch(apiUrl + "/api/students/data", {
+        headers: { "Content-Type": "application/json" },
+      });
+      const json = await response.json();
+
+      if (response.ok) {
+        dispatch({ type: "DISPLAY", payload: json.data });
+      }
+    };
+    dataFetch();
+
+    // console.log(students);
+  }, [dispatch]);
+
+  const deleteStu = async (id) => {
+    const apiUrl = `http://localhost:5005`;
+    const response = await fetch(apiUrl + "/api/students/" + id, {
+      method: "DELETE",
+    });
+    const json = await response.json();
+    if (response.ok) {
+      dispatch({ type: "DELETE", payload: json });
+      console.log(json);
+    }
+  };
+  //   if (!user) {
+  //     return;
+  //   }
 
   const editSubmit = (e) => {
-    props.updateStu(edit.id, e);
     setEdit({ id: null, value: [] });
   };
 
   if (edit.id) {
-    return <StuForm edit={edit} onSubmit={editSubmit} />;
+    return (
+      <>
+        <StuForm edit={edit} onSubmit={editSubmit} />
+        <button
+          type="button"
+          onClick={() => {
+            setEdit({ id: null, value: [] });
+          }}
+          className="m-2 px-2 bg-neutral-500 hover:bg-stone-300 border-2 border-transparent hover:border-neutral-700 text-black hover:text-neutral-700 ease-in-out duration-800 rounded-lg"
+        >
+          Cancel
+        </button>
+      </>
+    );
   }
 
   return (
@@ -34,8 +77,8 @@ const StuDash = (props) => {
           </tr>
         </thead>
         <tbody>
-          {props.studs &&
-            props.studs.map((student) => (
+          {students &&
+            students.map((student) => (
               <tr key={student._id}>
                 {/* <div key={student._id} className="container"> */}
                 {/* <h4>Name: </h4> */}
@@ -70,11 +113,15 @@ const StuDash = (props) => {
                   )}
                 </td>
                 <td>
-                  {student.period.map((sub, index) => (
-                    <p key={index} className="m-2 px-2 border">
-                      {sub}
-                    </p>
-                  ))}
+                  {!student.period ? (
+                    <p className="m-2 px-4 border">test class</p>
+                  ) : (
+                    student.period.map((sub, index) => (
+                      <p key={index} className="m-2 px-2 border">
+                        {sub}
+                      </p>
+                    ))
+                  )}
                 </td>
                 <td>
                   {!student.role ? (
@@ -98,13 +145,12 @@ const StuDash = (props) => {
                     Edit
                   </button>
                   <button
-                    onClick={() => props.removeStu(student._id)}
+                    onClick={() => deleteStu(student._id)}
                     className="my-1 px-2.5 text-stone-900 bg-neutral-500 hover:bg-stone-300 border-2 border-transparent hover:border-neutral-700 hover:text-neutral-700 rounded-b-lg"
                   >
                     Del
                   </button>
                 </td>
-                {/* </div> */}
               </tr>
             ))}
         </tbody>
