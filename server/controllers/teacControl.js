@@ -26,7 +26,7 @@ const generatePassword = async (e) => {
   //   console.log(typeof retVal);
 
   const email1 = "usamaengine@gmail.com";
-  const email2 = "umairkhanu07@gmail.com";
+  //   const email2 = "umairkhanu07@gmail.com";
 
   // sending Password
   let transport = nodemailer.createTransport({
@@ -48,7 +48,7 @@ const generatePassword = async (e) => {
     if (err) {
       console.log(err);
     } else {
-      console.log(info);
+      console.log(info.response);
     }
   });
 
