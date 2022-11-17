@@ -7,7 +7,7 @@ export const stuReducer = (state, action) => {
     case "DISPLAY":
       return { students: action.payload };
     case "CREATE":
-      return { students: [action.payload, ...state.students] };
+      return { students: [...state.students, action.payload] };
     case "DELETE":
       return {
         students: state.students.filter(

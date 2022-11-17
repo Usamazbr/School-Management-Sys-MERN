@@ -13,15 +13,24 @@ const getAlldata = async (req, res) => {
 
 //create data
 const createData = async (req, res) => {
-  const { name, age, subjects, teachers, email, period, role, phone } =
-    req.body;
-  console.log(req.body);
-  if (!name || !age) {
+  const {
+    username,
+    age,
+    subjects,
+    teachers,
+    email,
+    period,
+    role,
+    phone,
+    image,
+  } = req.body;
+  // console.log(req.body);
+  if (!username || !age) {
     throw Error("Username and age is required");
   }
   try {
     const data = await Student.create({
-      username: name,
+      username,
       age,
       subjects,
       teachers,
@@ -29,6 +38,7 @@ const createData = async (req, res) => {
       period,
       role,
       phone,
+      image,
     });
     // data.save();
     res.status(200).send({ data });
@@ -39,11 +49,20 @@ const createData = async (req, res) => {
 
 //edit data
 const patchData = async (req, res) => {
-  const { username, age, subjects, teachers, email, period, role, phone } =
-    req.body;
+  const {
+    username,
+    age,
+    subjects,
+    teachers,
+    email,
+    period,
+    role,
+    phone,
+    image,
+  } = req.body;
   const stu_id = req.params.Stu;
   console.log(stu_id);
-  console.log(req.body);
+  // console.log(req.body);
   try {
     const data = await Student.findByIdAndUpdate(
       stu_id,
@@ -56,6 +75,7 @@ const patchData = async (req, res) => {
         period,
         role,
         phone,
+        image,
       },
       { new: true }
     );

@@ -31,8 +31,8 @@ const StuDash = () => {
     });
     const json = await response.json();
     if (response.ok) {
-      dispatch({ type: "DELETE", payload: json });
-      console.log(json);
+      dispatch({ type: "DELETE", payload: json.data });
+      console.log(json.data);
     }
   };
   //   if (!user) {
@@ -65,6 +65,7 @@ const StuDash = () => {
       <table>
         <thead>
           <tr>
+            <th className="w-1/5">Picture</th>
             <th className="w-1/5">Name</th>
             <th className="w-1/5">Age</th>
             <th className="w-1/5">Subjects</th>
@@ -82,6 +83,15 @@ const StuDash = () => {
               <tr key={student._id}>
                 {/* <div key={student._id} className="container"> */}
                 {/* <h4>Name: </h4> */}
+                <td>
+                  <img
+                    height={30}
+                    width={60}
+                    src={student.image}
+                    className="p-1 rounded-t-lg"
+                    alt="imageI"
+                  />
+                </td>
                 <td>
                   <p className="m-2 px-2 border">{student.username}</p>
                 </td>
@@ -109,7 +119,7 @@ const StuDash = () => {
                   {!student.email ? (
                     <p className="m-2 px-4 border">test email</p>
                   ) : (
-                    <p className="m-2 border">{student.email}</p>
+                    <p className="m-2 px-1 border">{student.email}</p>
                   )}
                 </td>
                 <td>

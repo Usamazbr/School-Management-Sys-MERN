@@ -1,16 +1,17 @@
 import { useEffect, useState, useContext } from "react";
-import { StuContext } from "../context/StuContext";
+import { TeacContext } from "../context/TeacContext";
+// import { StuContext } from "../context/StuContext";
 import TeacForm from "./TeacForm";
 // import StuForm from "./StuForm";
 
 const TeacDash = () => {
-  const { students, dispatch } = useContext(StuContext);
+  const { teachers, dispatch } = useContext(TeacContext);
   const [edit, setEdit] = useState({ id: null, value: [] });
 
   useEffect(() => {
     const apiUrl = `http://localhost:5005`;
     const dataFetch = async () => {
-      const response = await fetch(apiUrl + "/api/students/data", {
+      const response = await fetch(apiUrl + "/api/teachers/data", {
         headers: { "Content-Type": "application/json" },
       });
       const json = await response.json();
@@ -26,13 +27,13 @@ const TeacDash = () => {
 
   const deleteStu = async (id) => {
     const apiUrl = `http://localhost:5005`;
-    const response = await fetch(apiUrl + "/api/students/" + id, {
+    const response = await fetch(apiUrl + "/api/teachers/" + id, {
       method: "DELETE",
     });
     const json = await response.json();
     if (response.ok) {
-      dispatch({ type: "DELETE", payload: json });
-      console.log(json);
+      dispatch({ type: "DELETE", payload: json.data });
+      console.log(json.data);
     }
   };
   //   if (!user) {
@@ -66,86 +67,53 @@ const TeacDash = () => {
         <thead>
           <tr>
             <th className="w-1/5">Name</th>
-            <th className="w-1/5">Age</th>
             <th className="w-1/5">Subjects</th>
-            <th className="w-1/5">Teachers</th>
             <th className="w-1/5">Email</th>
             <th className="w-1/5">Classes</th>
-            <th className="w-1/5">Role</th>
-            <th className="w-1/5">Phone</th>
             <th className="w-1/5">Actions</th>
           </tr>
         </thead>
         <tbody>
-          {students &&
-            students.map((student) => (
-              <tr key={student._id}>
-                {/* <div key={student._id} className="container"> */}
-                {/* <h4>Name: </h4> */}
+          {teachers &&
+            teachers.map((teacher) => (
+              <tr key={teacher._id}>
                 <td>
-                  <p className="m-2 px-2 border">{student.username}</p>
-                </td>
-                {/* <h4>Age: </h4> */}
-                <td>
-                  <p className="m-2 px-2 border">{student.age}</p>
+                  <p className="m-2 px-2 border">{teacher.username}</p>
                 </td>
                 <td>
-                  {/* <h4>Subjects: </h4> */}
-                  {student.subjects.map((sub, index) => (
+                  {teacher.subjects.map((sub, index) => (
                     <p key={index} className="m-2 px-2 border">
                       {sub}
                     </p>
                   ))}
                 </td>
                 <td>
-                  {/* <h4>Teachers: </h4> */}
-                  {student.teachers.map((teacher, index) => (
-                    <p key={index} className="m-2 px-2 border">
-                      {teacher}
-                    </p>
-                  ))}
-                </td>
-                <td>
-                  {!student.email ? (
+                  {!teacher.email ? (
                     <p className="m-2 px-4 border">test email</p>
                   ) : (
-                    <p className="m-2 border">{student.email}</p>
+                    <p className="m-2 px-2 border">{teacher.email}</p>
                   )}
                 </td>
                 <td>
-                  {!student.period ? (
+                  {!teacher.period ? (
                     <p className="m-2 px-4 border">test class</p>
                   ) : (
-                    student.period.map((sub, index) => (
+                    teacher.period.map((sub, index) => (
                       <p key={index} className="m-2 px-2 border">
                         {sub}
                       </p>
                     ))
                   )}
                 </td>
-                <td>
-                  {!student.role ? (
-                    <p className="m-2 px-4 border">test role number</p>
-                  ) : (
-                    <p className="m-2 border">{student.role}</p>
-                  )}
-                </td>
-                <td>
-                  {!student.phone ? (
-                    <p className="m-2 px-4 border">test phone</p>
-                  ) : (
-                    <p className="m-2 border">{student.phone}</p>
-                  )}
-                </td>
-                <td className="flex flex-col">
+                <td className="flex flex-col mx-auto w-16">
                   <button
-                    onClick={() => setEdit({ id: student._id, value: student })}
+                    onClick={() => setEdit({ id: teacher._id, value: teacher })}
                     className="mt-1 px-2 text-stone-900 bg-neutral-500 hover:bg-stone-300 border-2 border-transparent hover:border-neutral-700 hover:text-neutral-700 rounded-t-lg"
                   >
                     Edit
                   </button>
                   <button
-                    onClick={() => deleteStu(student._id)}
+                    onClick={() => deleteStu(teacher._id)}
                     className="my-1 px-2.5 text-stone-900 bg-neutral-500 hover:bg-stone-300 border-2 border-transparent hover:border-neutral-700 hover:text-neutral-700 rounded-b-lg"
                   >
                     Del

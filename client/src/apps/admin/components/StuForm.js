@@ -6,6 +6,8 @@ const apiUrl = `http://localhost:5005`;
 const StuForm = (props) => {
   const { dispatch } = useContext(StuContext);
   const [err, setErr] = useState(null);
+
+  const [stuImg, setStuImg] = useState("");
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [subs, setSubs] = useState("");
@@ -36,6 +38,7 @@ const StuForm = (props) => {
         period,
         role,
         phone,
+        image: stuImg,
       });
       // console.log(props.edit.id);
       response = await fetch(apiUrl + `/api/students/` + props.edit.id, {
@@ -50,6 +53,7 @@ const StuForm = (props) => {
           period,
           role,
           phone,
+          image: stuImg,
         }),
       });
 
@@ -63,7 +67,7 @@ const StuForm = (props) => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name,
+          username: name,
           age,
           subjects,
           teachers,
@@ -71,6 +75,7 @@ const StuForm = (props) => {
           period,
           role,
           phone,
+          image: stuImg,
         }),
       });
 
@@ -87,6 +92,7 @@ const StuForm = (props) => {
         setPeriod("");
         setRole("");
         setPhone("");
+        setStuImg("");
       }
     }
 
@@ -96,12 +102,30 @@ const StuForm = (props) => {
     }
   };
 
+  const fileSelect = (e) => {
+    const file = e.target.files[0];
+    console.log(file.name);
+    const fileRead = new FileReader();
+    fileRead.readAsDataURL(file);
+    fileRead.onload = () => setStuImg(fileRead.result);
+  };
+
   return (
     <form
       onSubmit={stuSubmit}
       className="flex flex-col w-full text-neutral-500"
     >
-      <h2 className="flex mx-auto text-xl">Add new teacher</h2>
+      <h2 className="flex mx-auto text-xl">Add new Student</h2>
+
+      <label>
+        Picture:
+        <input
+          // style={{ display: "none" }}
+          type="file"
+          className="m-1 shadow-inner"
+          onChange={fileSelect}
+        />
+      </label>
 
       <label>
         Name:

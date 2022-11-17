@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import TeacForm from "../components/TeacForm";
 import TeacDash from "../components/TeacDash";
 
-function StuEdit() {
+function TeacEdit() {
   const [add, setAdd] = useState(true);
 
   useEffect(() => {}, []);
@@ -54,4 +54,4 @@ function StuEdit() {
   );
 }
 
-export default StuEdit;
+export default TeacEdit;

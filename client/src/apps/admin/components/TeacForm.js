@@ -1,19 +1,16 @@
 import { useEffect, useState, useContext } from "react";
-import { StuContext } from "../context/StuContext";
+import { TeacContext } from "../context/TeacContext";
 
 const apiUrl = `http://localhost:5005`;
 
 const TeacForm = (props) => {
-  const { dispatch } = useContext(StuContext);
+  const { dispatch } = useContext(TeacContext);
   const [err, setErr] = useState(null);
+
   const [name, setName] = useState("");
-  const [age, setAge] = useState("");
   const [subs, setSubs] = useState("");
-  const [teacher, setTeacher] = useState("");
   const [email, setEmail] = useState("");
   const [periods, setPeriod] = useState("");
-  const [role, setRole] = useState("");
-  const [phone, setPhone] = useState("");
   let json;
 
   useEffect(() => {}, []);
@@ -22,34 +19,25 @@ const TeacForm = (props) => {
     e.preventDefault();
     setErr(null);
     const subjects = subs.split(" ");
-    const teachers = teacher.split(" ");
     const period = periods.split(" ");
     let response;
 
     if (props.edit) {
       props.onSubmit({
         username: name,
-        age,
         subjects,
-        teachers,
         email,
         period,
-        role,
-        phone,
       });
       // console.log(props.edit.id);
-      response = await fetch(apiUrl + `/api/students/` + props.edit.id, {
+      response = await fetch(apiUrl + `/api/teachers/` + props.edit.id, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           username: name,
-          age,
           subjects,
-          teachers,
           email,
           period,
-          role,
-          phone,
         }),
       });
 
@@ -59,18 +47,22 @@ const TeacForm = (props) => {
         dispatch({ type: "UPDATE", payload: json.data });
       }
     } else {
-      response = await fetch(apiUrl + `/api/students/data`, {
+      console.log(
+        JSON.stringify({
+          username: name,
+          subjects,
+          email,
+          period,
+        })
+      );
+      response = await fetch(apiUrl + `/api/teachers/data`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name,
-          age,
+          username: name,
           subjects,
-          teachers,
           email,
           period,
-          role,
-          phone,
         }),
       });
 
@@ -80,18 +72,14 @@ const TeacForm = (props) => {
         dispatch({ type: "CREATE", payload: json.data });
         setErr(null);
         setName("");
-        setAge("");
         setSubs("");
-        setTeacher("");
         setEmail("");
         setPeriod("");
-        setRole("");
-        setPhone("");
       }
     }
 
     if (!response.ok) {
-      console.log(json);
+      console.log(json.err);
       setErr(json.err);
     }
   };
@@ -101,7 +89,7 @@ const TeacForm = (props) => {
       onSubmit={stuSubmit}
       className="flex flex-col w-full text-neutral-500"
     >
-      <h2 className="flex mx-auto text-xl">Add new teacher</h2>
+      <h2 className="flex mx-auto text-xl">Add new Teacher</h2>
 
       <label>
         Name:
@@ -114,32 +102,12 @@ const TeacForm = (props) => {
       </label>
 
       <label>
-        Age:
-        <input
-          value={age}
-          className="m-1"
-          type="number"
-          onChange={(e) => setAge(e.target.value)}
-        />
-      </label>
-
-      <label>
         Subjects:
         <input
           value={subs}
           className="m-1"
           type="text"
           onChange={(e) => setSubs(e.target.value)}
-        />
-      </label>
-
-      <label>
-        Teachers:
-        <input
-          value={teacher}
-          className="m-1"
-          type="text"
-          onChange={(e) => setTeacher(e.target.value)}
         />
       </label>
 
@@ -160,26 +128,6 @@ const TeacForm = (props) => {
           className="m-1"
           type="text"
           onChange={(e) => setPeriod(e.target.value)}
-        />
-      </label>
-
-      <label>
-        Role no.:
-        <input
-          value={role}
-          className="m-1"
-          type="number"
-          onChange={(e) => setRole(e.target.value)}
-        />
-      </label>
-
-      <label>
-        Phone:
-        <input
-          value={phone}
-          className="m-1"
-          type="number"
-          onChange={(e) => setPhone(e.target.value)}
         />
       </label>
 
