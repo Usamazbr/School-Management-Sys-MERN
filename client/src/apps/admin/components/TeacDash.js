@@ -1,18 +1,23 @@
 import { useEffect, useState, useContext } from "react";
 import { TeacContext } from "../context/TeacContext";
+import { useVer } from "../../../context/VerContext";
 // import { StuContext } from "../context/StuContext";
 import TeacForm from "./TeacForm";
 // import StuForm from "./StuForm";
 
 const TeacDash = () => {
   const { teachers, dispatch } = useContext(TeacContext);
+  const { user } = useVer();
   const [edit, setEdit] = useState({ id: null, value: [] });
 
   useEffect(() => {
     const apiUrl = `http://localhost:5005`;
     const dataFetch = async () => {
       const response = await fetch(apiUrl + "/api/teachers/data", {
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${user.token}`,
+        },
       });
       const json = await response.json();
 
@@ -23,12 +28,16 @@ const TeacDash = () => {
     dataFetch();
 
     // console.log(students);
-  }, [dispatch]);
+  }, [dispatch, user]);
 
   const deleteStu = async (id) => {
     const apiUrl = `http://localhost:5005`;
     const response = await fetch(apiUrl + "/api/teachers/" + id, {
       method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${user.token}`,
+      },
     });
     const json = await response.json();
     if (response.ok) {

@@ -8,6 +8,10 @@ const teacSchema = new Schema(
     subjects: [String],
     email: { type: String, required: true },
     period: [String],
+    user_id: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );

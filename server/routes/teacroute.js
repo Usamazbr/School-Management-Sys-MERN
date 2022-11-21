@@ -5,8 +5,12 @@ const {
   patchData,
   deleteData,
 } = require("../controllers/teacControl");
+const teacFilter = require("../middleware/teacFilter");
 
 const router = express.Router();
+
+//middleware
+router.use(teacFilter);
 
 // all data and add data
 router.route("/data").get(getAlldata).post(createData);

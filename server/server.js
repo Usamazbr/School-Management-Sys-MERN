@@ -4,6 +4,7 @@ const dotenv = require("dotenv").config();
 const mongoose = require("mongoose");
 const stuRoute = require("./routes/sturoute");
 const teacRoute = require("./routes/teacroute");
+const userRoutes = require("./routes/user");
 
 const cors = require("cors");
 
@@ -26,6 +27,7 @@ function loggerCon(req, res, next) {
 // Main routes
 app.use("/api/students", stuRoute);
 app.use("/api/teachers", teacRoute);
+app.use("/api/user", userRoutes);
 
 // connect to db
 mongoose
