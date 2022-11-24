@@ -1,17 +1,22 @@
 const Teacher = require("../models/teacModel");
 const { signupUser } = require("./userController");
-// const User = require("../models/userModel");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
-// const jwt = require("jsonwebtoken");
 
 //get all data
 const getAlldata = async (req, res) => {
   const user_id = req.user._id;
+  // console.log("\x1b[33mteacControl line 13:\x1b[0m ");
+  // console.log(user_id);
 
   try {
-    const data = await Teacher.find({ user_id }).sort({ updatedAt: 1 });
+    let data = await Teacher.find({ user_id }).sort({ updatedAt: 1 });
+    if (!data[0]) {
+      data = await Teacher.find({ self_id: user_id }).sort({ updatedAt: 1 });
+    }
+    // console.log("\x1b[33mteacControl line 21:\x1b[0m ");
+    // console.log(data[0]);
     res.status(200).send({ data });
   } catch (err) {
     res.status(404).json({ err: err });
@@ -28,10 +33,6 @@ const generatePassword = async () => {
     retVal += charset.charAt(Math.floor(Math.random() * n));
   }
   retVal = retVal + Math.trunc(Math.random() * 1000);
-  // console.log("password => " + retVal);
-  // console.log("from: " + ea);
-  // console.log("to: " + e);
-
   // const email1 = "usamaengine@gmail.com";
   //   const email2 = "umairkhanu07@gmail.com";
 
@@ -93,10 +94,10 @@ const createData = async (req, res) => {
   //   throw Error("Email is already in use");
   // }
   try {
-    const re = await signupUser(a);
+    const self_id = await signupUser(a);
     await generateEmail(email, user.email, password.retVal);
     console.log("\x1b[33mteacControl line 99:\x1b[0m ");
-    console.log("return is " + re);
+    console.log("return is " + self_id);
     const data = await Teacher.create({
       username,
       password: password.hash,
@@ -104,6 +105,7 @@ const createData = async (req, res) => {
       email,
       period,
       user_id,
+      self_id,
     });
     console.log("\x1b[33mteacControl line 109:\x1b[0m ");
     console.log(data);

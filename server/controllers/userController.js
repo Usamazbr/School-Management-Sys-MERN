@@ -53,6 +53,7 @@ const signupUser = async (req, res) => {
       // creating token
       const token = createToken(user._id);
 
+      return user._id;
       // res.status(200).json({ email, token, admin });
     }
 
@@ -75,8 +76,23 @@ const signupUser = async (req, res) => {
   // res.json({ msg: "signup user" });
 };
 
+const chanPass = async (req, res) => {
+  const user = req.user;
+  const { oldP, newP } = req.body;
+
+  try {
+    const changed = await User.change(user, oldP, newP);
+
+    res.status(200).json("password changed!");
+  } catch (err) {
+    console.log(err);
+    res.status(400).json({ err: err.message });
+  }
+};
+
 module.exports = {
   getAllData,
   signupUser,
   loginUser,
+  chanPass,
 };

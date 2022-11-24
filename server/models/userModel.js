@@ -85,4 +85,29 @@ userSchema.statics.signup = async function (email, password, admin) {
 
   return user;
 };
+
+// Password change
+userSchema.statics.change = async function (user, old, new1) {
+  // validation
+  if (!old || !new1) {
+    throw Error("All fields must be filled");
+  }
+
+  //hash
+  const enrate = await bcrypt.genSalt(10);
+  const hash = await bcrypt.hash(new1, enrate);
+
+  const compare = await bcrypt.compare(old, user.password);
+  if (!compare) {
+    throw Error("Incorrect match");
+  }
+
+  const data = await this.updateOne(
+    { _id: user._id },
+    { $set: { password: hash } }
+  );
+
+  return data;
+};
+
 module.exports = mongoose.model("Username2", userSchema);

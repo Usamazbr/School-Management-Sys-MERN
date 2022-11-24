@@ -6,12 +6,14 @@ const {
   getAllData,
   signupUser,
   loginUser,
+  chanPass,
   // getAllNots,
   // delNots,
   // setHier,
   // getJuniors,
   // getSeniors,
 } = require("../controllers/userController");
+const userFilter = require("../middleware/userFilter");
 
 // login route
 router.post("/login", loginUser);
@@ -28,7 +30,13 @@ router.route("/data").get(getAllData);
 // router.route("/Nots/:User").get(getAllNots).delete(delNots);
 
 //ID requests
-router.route("/:User");
+// router.route("/:User");
 // router.route("/hier/:User").patch(setHier);
+
+//middleware
+router.use(userFilter);
+
+// change password
+router.route("/change").patch(chanPass);
 
 module.exports = router;

@@ -1,30 +1,44 @@
 import { useEffect, useState, useContext } from "react";
 import { StuContext } from "../context/StuContext";
+import { TeacContext } from "../context/TeacContext";
+import { useVer } from "../../../context/VerContext";
 
 const apiUrl = `http://localhost:5005`;
 
 const StuForm = (props) => {
   const { dispatch } = useContext(StuContext);
+  const { teachers } = useContext(TeacContext);
+  const { user } = useVer();
   const [err, setErr] = useState(null);
 
   const [stuImg, setStuImg] = useState("");
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [subs, setSubs] = useState("");
-  const [teacher, setTeacher] = useState("");
+  const [teacher, setTeacher] = useState([]);
+  // const [teac_id, setTeac_id] = useState([]);
   const [email, setEmail] = useState("");
   const [periods, setPeriod] = useState("");
   const [role, setRole] = useState("");
   const [phone, setPhone] = useState("");
   let json;
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    console.log(teachers);
+  }, []);
 
   const stuSubmit = async (e) => {
     e.preventDefault();
     setErr(null);
+    // console.log(teachers);
+    const arr = teacher.map((teach) =>
+      teachers.filter((teac) => teac.username === teach)
+    );
+    // setTeac_id(() => arr.map((a) => a[0]._id));
+    const teac_id = arr.map((a) => a[0]._id);
+    console.log(teac_id);
     const subjects = subs.split(" ");
-    const teachers = teacher.split(" ");
+    // const teachers = teacher;
     const period = periods.split(" ");
     let response;
 
@@ -33,7 +47,7 @@ const StuForm = (props) => {
         username: name,
         age,
         subjects,
-        teachers,
+        teachers: teacher,
         email,
         period,
         role,
@@ -43,17 +57,21 @@ const StuForm = (props) => {
       // console.log(props.edit.id);
       response = await fetch(apiUrl + `/api/students/` + props.edit.id, {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${user.token}`,
+        },
         body: JSON.stringify({
           username: name,
           age,
           subjects,
-          teachers,
+          teachers: teacher,
           email,
           period,
           role,
           phone,
           image: stuImg,
+          teac_id,
         }),
       });
 
@@ -65,17 +83,21 @@ const StuForm = (props) => {
     } else {
       response = await fetch(apiUrl + `/api/students/data`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${user.token}`,
+        },
         body: JSON.stringify({
           username: name,
           age,
           subjects,
-          teachers,
+          teachers: teacher,
           email,
           period,
           role,
           phone,
           image: stuImg,
+          teac_id,
         }),
       });
 
@@ -115,14 +137,16 @@ const StuForm = (props) => {
       onSubmit={stuSubmit}
       className="flex flex-col w-full text-neutral-500"
     >
-      <h2 className="flex mx-auto text-xl">Add new Student</h2>
+      <h2 className="flex mx-auto px-1 text-xl border border-neutral-500 rounded-lg">
+        Add new Student
+      </h2>
 
       <label>
         Picture:
         <input
           // style={{ display: "none" }}
           type="file"
-          className="m-1 shadow-inner"
+          className="m-1 shadow-inner bg-black rounded-lg"
           onChange={fileSelect}
         />
       </label>
@@ -131,7 +155,7 @@ const StuForm = (props) => {
         Name:
         <input
           value={name}
-          className="m-1"
+          className="my-1 px-1 bg-black rounded-lg"
           type="text"
           onChange={(e) => setName(e.target.value)}
         />
@@ -141,7 +165,7 @@ const StuForm = (props) => {
         Age:
         <input
           value={age}
-          className="m-1"
+          className="my-1 px-1 bg-black rounded-lg"
           type="number"
           onChange={(e) => setAge(e.target.value)}
         />
@@ -151,7 +175,7 @@ const StuForm = (props) => {
         Subjects:
         <input
           value={subs}
-          className="m-1"
+          className="my-1 px-1 bg-black rounded-lg"
           type="text"
           onChange={(e) => setSubs(e.target.value)}
         />
@@ -159,19 +183,44 @@ const StuForm = (props) => {
 
       <label>
         Teachers:
-        <input
-          value={teacher}
-          className="m-1"
-          type="text"
-          onChange={(e) => setTeacher(e.target.value)}
-        />
+        {teacher &&
+          teacher.map((teac, i) => (
+            <div key={i} className="flex flex-row">
+              <p className="w-1/2">{teac}</p>
+              <button
+                type="button"
+                className="mx-auto w-6 hover:bg-stone-300 hover:border-neutral-700 hover:text-neutral-700 rounded-full"
+                onClick={() =>
+                  setTeacher((prev) =>
+                    [...prev].filter((teach) => teach !== teac)
+                  )
+                }
+              >
+                x
+              </button>
+            </div>
+          ))}
       </label>
+      <select
+        id="teachers"
+        name="mems"
+        className="m-1 mr-4 bg-black rounded-lg"
+        onChange={(e) => {
+          setTeacher((prev) => [...prev, e.target.value]);
+          // const dD = document.getElementById("teachers");
+          // dD.selectedIndex = 0;
+        }}
+      >
+        <option>select</option>
+        {teachers &&
+          teachers.map((teac, i) => <option key={i}>{teac.username}</option>)}
+      </select>
 
       <label>
         Email:
         <input
           value={email}
-          className="m-1"
+          className="my-1 px-1 bg-black rounded-lg"
           type="text"
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -181,7 +230,7 @@ const StuForm = (props) => {
         Classes:
         <input
           value={periods}
-          className="m-1"
+          className="my-1 px-1 bg-black rounded-lg"
           type="text"
           onChange={(e) => setPeriod(e.target.value)}
         />
@@ -191,7 +240,7 @@ const StuForm = (props) => {
         Role no.:
         <input
           value={role}
-          className="m-1"
+          className="my-1 px-1 bg-black rounded-lg"
           type="number"
           onChange={(e) => setRole(e.target.value)}
         />
@@ -201,7 +250,7 @@ const StuForm = (props) => {
         Phone:
         <input
           value={phone}
-          className="m-1"
+          className="my-1 px-1 bg-black rounded-lg"
           type="number"
           onChange={(e) => setPhone(e.target.value)}
         />

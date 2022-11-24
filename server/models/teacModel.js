@@ -12,6 +12,10 @@ const teacSchema = new Schema(
       type: String,
       required: true,
     },
+    self_id: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );

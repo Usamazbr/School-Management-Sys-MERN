@@ -1,11 +1,11 @@
 import { Routes, Route } from "react-router-dom";
+import { StuContextWrap } from "./context/StuContext";
+import { TeacContextWrap } from "./context/TeacContext";
 import Navbar2 from "./components/Navbar2";
 import StuEdit from "./pages/StuEdit";
 import TeacEdit from "./pages/TeacEdit";
 import HomeA from "./pages/HomeA";
 import Settings from "./pages/Settings";
-import { StuContextWrap } from "./context/StuContext";
-import { TeacContextWrap } from "./context/TeacContext";
 
 const AdminApp = () => {
   return (

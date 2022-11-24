@@ -3,8 +3,16 @@ const mongoose = require("mongoose");
 
 //get all data
 const getAlldata = async (req, res) => {
+  const admin_id = req.user._id;
+  const teac_id = req.params.Stu;
+  console.log(admin_id);
+  console.log(teac_id);
   try {
-    const data = await Student.find({});
+    let data = await Student.find({ admin_id }).sort({ updatedAt: -1 });
+    // console.log(data);
+    if (!data[0]) {
+      data = await Student.find({ teac_id }).sort({ updatedAt: -1 });
+    }
     res.status(200).send({ data });
   } catch (err) {
     res.status(404).json({ err: err });
@@ -13,6 +21,7 @@ const getAlldata = async (req, res) => {
 
 //create data
 const createData = async (req, res) => {
+  const admin_id = req.user._id;
   const {
     username,
     age,
@@ -23,6 +32,7 @@ const createData = async (req, res) => {
     role,
     phone,
     image,
+    teac_id,
   } = req.body;
   // console.log(req.body);
   if (!username || !age) {
@@ -39,6 +49,8 @@ const createData = async (req, res) => {
       role,
       phone,
       image,
+      admin_id,
+      teac_id,
     });
     // data.save();
     res.status(200).send({ data });
@@ -49,6 +61,7 @@ const createData = async (req, res) => {
 
 //edit data
 const patchData = async (req, res) => {
+  const admin_id = req.user._id;
   const {
     username,
     age,
@@ -59,6 +72,7 @@ const patchData = async (req, res) => {
     role,
     phone,
     image,
+    teac_id,
   } = req.body;
   const stu_id = req.params.Stu;
   console.log(stu_id);
@@ -76,6 +90,8 @@ const patchData = async (req, res) => {
         role,
         phone,
         image,
+        admin_id,
+        teac_id,
       },
       { new: true }
     );

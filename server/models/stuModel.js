@@ -13,6 +13,11 @@ const stuSchema = new Schema(
     role: { type: Number, required: false },
     phone: { type: Number, required: false },
     image: { type: String, required: false },
+    admin_id: {
+      type: String,
+      required: true,
+    },
+    teac_id: [String],
   },
   { timestamps: true }
 );

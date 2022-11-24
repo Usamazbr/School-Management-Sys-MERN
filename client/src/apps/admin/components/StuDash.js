@@ -1,17 +1,22 @@
 import { useEffect, useState, useContext } from "react";
 import { StuContext } from "../context/StuContext";
+import { useVer } from "../../../context/VerContext";
 // import TeacForm from "./TeacForm";
 import StuForm from "./StuForm";
 
 const StuDash = () => {
   const { students, dispatch } = useContext(StuContext);
+  const { user } = useVer();
   const [edit, setEdit] = useState({ id: null, value: [] });
 
   useEffect(() => {
     const apiUrl = `http://localhost:5005`;
     const dataFetch = async () => {
       const response = await fetch(apiUrl + "/api/students/data", {
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${user.token}`,
+        },
       });
       const json = await response.json();
 
@@ -28,6 +33,10 @@ const StuDash = () => {
     const apiUrl = `http://localhost:5005`;
     const response = await fetch(apiUrl + "/api/students/" + id, {
       method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${user.token}`,
+      },
     });
     const json = await response.json();
     if (response.ok) {
@@ -89,7 +98,7 @@ const StuDash = () => {
                     width={60}
                     src={student.image}
                     className="p-1 rounded-t-lg"
-                    alt="imageI"
+                    alt="No img"
                   />
                 </td>
                 <td>
@@ -137,14 +146,14 @@ const StuDash = () => {
                   {!student.role ? (
                     <p className="m-2 px-4 border">test role number</p>
                   ) : (
-                    <p className="m-2 border">{student.role}</p>
+                    <p className="m-2 px-1 border">{student.role}</p>
                   )}
                 </td>
                 <td>
                   {!student.phone ? (
                     <p className="m-2 px-4 border">test phone</p>
                   ) : (
-                    <p className="m-2 border">{student.phone}</p>
+                    <p className="m-2 px-1 border">{student.phone}</p>
                   )}
                 </td>
                 <td className="flex flex-col">
