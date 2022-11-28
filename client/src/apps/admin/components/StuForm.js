@@ -1,13 +1,13 @@
-import { useEffect, useState, useContext } from "react";
-import { StuContext } from "../context/StuContext";
-import { TeacContext } from "../context/TeacContext";
+import { useState } from "react";
+import { useStu } from "../context/StuContext";
+import { useTeac } from "../context/TeacContext";
 import { useVer } from "../../../context/VerContext";
 
 const apiUrl = `http://localhost:5005`;
 
 const StuForm = (props) => {
-  const { dispatch } = useContext(StuContext);
-  const { teachers } = useContext(TeacContext);
+  const { disp } = useStu();
+  const { teachers } = useTeac();
   const { user } = useVer();
   const [err, setErr] = useState(null);
 
@@ -22,10 +22,6 @@ const StuForm = (props) => {
   const [role, setRole] = useState("");
   const [phone, setPhone] = useState("");
   let json;
-
-  useEffect(() => {
-    console.log(teachers);
-  }, []);
 
   const stuSubmit = async (e) => {
     e.preventDefault();
@@ -78,7 +74,7 @@ const StuForm = (props) => {
       json = await response.json();
       if (response.ok) {
         console.log(json.data);
-        dispatch({ type: "UPDATE", payload: json.data });
+        disp({ type: "UPDATE", payload: json.data });
       }
     } else {
       response = await fetch(apiUrl + `/api/students/data`, {
@@ -88,6 +84,7 @@ const StuForm = (props) => {
           authorization: `Bearer ${user.token}`,
         },
         body: JSON.stringify({
+          user,
           username: name,
           age,
           subjects,
@@ -104,7 +101,7 @@ const StuForm = (props) => {
       json = await response.json();
       if (response.ok) {
         console.log(json.data);
-        dispatch({ type: "CREATE", payload: json.data });
+        disp({ type: "CREATE", payload: json.data });
         setErr(null);
         setName("");
         setAge("");
@@ -204,7 +201,7 @@ const StuForm = (props) => {
       <select
         id="teachers"
         name="mems"
-        className="m-1 mr-4 bg-black rounded-lg"
+        className="m-1 w-44 bg-black rounded-lg"
         onChange={(e) => {
           setTeacher((prev) => [...prev, e.target.value]);
           // const dD = document.getElementById("teachers");

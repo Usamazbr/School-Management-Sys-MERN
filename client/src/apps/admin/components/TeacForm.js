@@ -1,11 +1,11 @@
-import { useEffect, useState, useContext } from "react";
-import { TeacContext } from "../context/TeacContext";
+import { useState } from "react";
+import { useTeac } from "../context/TeacContext";
 import { useVer } from "../../../context/VerContext";
 
 const apiUrl = `http://localhost:5005`;
 
 const TeacForm = (props) => {
-  const { dispatch } = useContext(TeacContext);
+  const { dispatch } = useTeac();
   const { user } = useVer();
   const [err, setErr] = useState(null);
 
@@ -15,9 +15,7 @@ const TeacForm = (props) => {
   const [periods, setPeriod] = useState("");
   let json;
 
-  useEffect(() => {}, []);
-
-  const stuSubmit = async (e) => {
+  const teacSubmit = async (e) => {
     e.preventDefault();
     setErr(null);
     const subjects = subs.split(" ");
@@ -52,15 +50,6 @@ const TeacForm = (props) => {
         dispatch({ type: "UPDATE", payload: json.data });
       }
     } else {
-      console.log(
-        JSON.stringify({
-          user,
-          username: name,
-          subjects,
-          email,
-          period,
-        })
-      );
       response = await fetch(apiUrl + `/api/teachers/data`, {
         method: "POST",
         headers: {
@@ -96,7 +85,7 @@ const TeacForm = (props) => {
 
   return (
     <form
-      onSubmit={stuSubmit}
+      onSubmit={teacSubmit}
       className="flex flex-col w-full text-neutral-500"
     >
       <h2 className="flex mx-auto text-xl">Add new Teacher</h2>
@@ -142,7 +131,7 @@ const TeacForm = (props) => {
       </label>
 
       <button
-        // onClick={stuSubmit}
+        // onClick={teacSubmit}
         className="mx-auto p-2 bg-stone-900 hover:bg-stone-300 border-2 border-transparent hover:border-neutral-700 hover:text-neutral-700 rounded-lg"
       >
         Submit

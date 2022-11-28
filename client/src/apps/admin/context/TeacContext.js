@@ -1,6 +1,9 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useContext } from "react";
 
 export const TeacContext = createContext();
+export const useTeac = () => {
+  return useContext(TeacContext);
+};
 
 export const teacReducer = (state, action) => {
   switch (action.type) {

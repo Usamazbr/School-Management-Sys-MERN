@@ -29,7 +29,7 @@ const TeacApp = () => {
 
       if (response.ok) {
         dispatch({ type: "SET", payload: json.data[0] });
-        console.log(json.data[0]._id);
+
         const response = await fetch(
           apiUrl + "/api/students/data/" + json.data[0]._id,
           {
@@ -50,14 +50,10 @@ const TeacApp = () => {
         console.log(json);
       }
     };
-    // const dataFetch2 = async () => {
-    // console.log(teacher);
-    // };
-    dataFetch();
-    // dataFetch2();
 
-    // console.log(students);
+    dataFetch();
   }, [user, dispatch, disp]);
+
   return (
     <div className="flex flex-row mt-2 p-2 h-160 mx-auto bg-stone-400 rounded-lg">
       <Navbar2 />

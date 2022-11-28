@@ -1,6 +1,10 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useContext } from "react";
 
 export const StuContext = createContext();
+
+export const useStu = () => {
+  return useContext(StuContext);
+};
 
 export const stuReducer = (state, action) => {
   switch (action.type) {
@@ -31,10 +35,10 @@ export const stuReducer = (state, action) => {
 };
 
 export const StuContextWrap = ({ children }) => {
-  const [state, dispatch] = useReducer(stuReducer, { students: null });
+  const [state, disp] = useReducer(stuReducer, { students: null });
 
   return (
-    <StuContext.Provider value={{ ...state, dispatch }}>
+    <StuContext.Provider value={{ ...state, disp }}>
       {children}
     </StuContext.Provider>
   );

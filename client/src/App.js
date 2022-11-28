@@ -34,9 +34,11 @@ function App() {
                 user ? (
                   <>
                     {
-                      { 1: <AdminApp />, 2: <Navigate to="/teacher/*" /> }[
-                        user.admin
-                      ]
+                      {
+                        1: <AdminApp />,
+                        2: <Navigate to="/teacher/*" />,
+                        3: <Navigate to="/student/*" />,
+                      }[user.admin]
                     }
                   </>
                 ) : (

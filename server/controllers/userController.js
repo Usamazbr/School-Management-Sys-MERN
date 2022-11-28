@@ -36,7 +36,7 @@ const getAllData = async (req, res) => {
 // signup user
 const signupUser = async (req, res) => {
   const { email, password, admin } = req.body;
-  console.log("\x1b[33mteacControl line 40:\x1b[0m ");
+  console.log("\x1b[33muserControl line 40:\x1b[0m ");
   console.log(admin);
 
   try {

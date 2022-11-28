@@ -1,11 +1,10 @@
-// import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useVer } from "../context/VerContext";
 import { useLogout } from "./Logout";
 
 const NavBar = () => {
   const { user } = useVer();
-  // useEffect(() => {}, []);
+
   const { logout } = useLogout();
   const handleClick = () => {
     logout();
@@ -18,8 +17,8 @@ const NavBar = () => {
           Student Forum
         </h1>
       </Link>
-      <div className="w-3/12 "></div>
-      <nav className="flex flex-row w-5/12 top-2 right-4 text-neutral-500">
+      <div className="w-5/12 "></div>
+      <nav className="flex flex-row w-3/12 top-2 right-4 text-neutral-500">
         {user ? (
           <div className="flex flex-row m-auto mt-6">
             <span className="">{user.email.split("@")[0]}</span>
@@ -41,12 +40,6 @@ const NavBar = () => {
           </div>
         ) : (
           <div className="m-auto mt-7">
-            <Link
-              className="m-2 p-2 hover:text-white border rounded-lg"
-              to="/student"
-            >
-              Student
-            </Link>
             <Link
               className="m-2 p-2 hover:text-white border rounded-lg"
               to="/login"

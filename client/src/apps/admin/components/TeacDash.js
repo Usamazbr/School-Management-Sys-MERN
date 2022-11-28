@@ -1,34 +1,14 @@
-import { useEffect, useState, useContext } from "react";
-import { TeacContext } from "../context/TeacContext";
+import { useState } from "react";
+import { useTeac } from "../context/TeacContext";
 import { useVer } from "../../../context/VerContext";
 // import { StuContext } from "../context/StuContext";
 import TeacForm from "./TeacForm";
 // import StuForm from "./StuForm";
 
 const TeacDash = () => {
-  const { teachers, dispatch } = useContext(TeacContext);
+  const { teachers, dispatch } = useTeac();
   const { user } = useVer();
   const [edit, setEdit] = useState({ id: null, value: [] });
-
-  useEffect(() => {
-    const apiUrl = `http://localhost:5005`;
-    const dataFetch = async () => {
-      const response = await fetch(apiUrl + "/api/teachers/data", {
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${user.token}`,
-        },
-      });
-      const json = await response.json();
-
-      if (response.ok) {
-        dispatch({ type: "DISPLAY", payload: json.data });
-      }
-    };
-    dataFetch();
-
-    // console.log(students);
-  }, [dispatch, user]);
 
   const deleteStu = async (id) => {
     const apiUrl = `http://localhost:5005`;

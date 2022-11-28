@@ -64,7 +64,7 @@ export default function Settings() {
         Settings
       </h2>
       <div className="flex flex-row h-full w-full text-neutral-500 mt-2 rounded-lg">
-        <div className="m-2 rounded-lg">
+        <div className="flex flex-row m-2 rounded-lg">
           <div
             className={`flex flex-col mb-1 w-full p-5 bg-stone-800 text-slate-400 border-transparent border-slate-400 rounded-lg ${
               err ? "h-60" : "h-1/2"
@@ -78,8 +78,16 @@ export default function Settings() {
                 <p>Name: {teacher.username}</p>
                 <p>Email: {teacher.email}</p>
                 <div className="flex flex-row">
-                  Classes:{" "}
+                  Subjects:{" "}
                   {teacher.subjects?.map((sub, i) => (
+                    <p className="px-1" key={i}>
+                      {sub}
+                    </p>
+                  ))}
+                </div>
+                <div className="flex flex-row">
+                  Classes:{" "}
+                  {teacher.period?.map((sub, i) => (
                     <p className="px-1" key={i}>
                       {sub}
                     </p>

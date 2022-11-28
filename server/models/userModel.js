@@ -33,22 +33,19 @@ userSchema.statics.login = async function (email, password) {
     throw Error("All fields must be filled");
   }
   let already = await this.find({ email });
-  console.log("already: " + already);
+
   if (!already[0]) {
     throw Error("Incorrect email");
   }
   let compare = false;
   for (let i = 0; i < already.length; i++) {
-    console.log(compare);
     compare = await bcrypt.compare(password, already[i].password);
     already = already[i];
-    console.log("iterrative" + already);
   }
   // const compare = await bcrypt.compare(password, already.password);
   if (!compare) {
     throw Error("Incorrect password");
   }
-  console.log("modified already: " + already);
   return already;
 };
 
